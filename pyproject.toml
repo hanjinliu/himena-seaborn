@@ -28,6 +28,12 @@ dependencies = [
   "seaborn",
 ]
 
+[project.optional-dependencies]
+testing = [
+  "pytest",
+  "pytest-cov",
+]
+
 [project.urls]
 Documentation = "https://github.com/hanjinliu/himena-seaborn#readme"
 Issues = "https://github.com/hanjinliu/himena-seaborn/issues"
@@ -49,7 +55,7 @@ branch = true
 parallel = true
 
 [tool.coverage.paths]
-himena_seaborn = ["src/himena_seaborn", "*/himena-seaborn/src/himena_seaborn"]
+himena_seaborn = ["src/himena_seaborn"]
 tests = ["tests", "*/himena-seaborn/tests"]
 
 [tool.coverage.report]

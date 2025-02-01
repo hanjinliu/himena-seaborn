@@ -23,3 +23,9 @@ himena <my-profile> --install himena-seaborn
 # or to the default profile
 himena --install himena-seaborn
 ```
+
+## Usage
+
+A "Seaborn" menu will be added to the table and dataframe menus.
+
+![](images/menu.png)

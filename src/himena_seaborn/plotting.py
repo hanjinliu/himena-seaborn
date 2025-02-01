@@ -13,6 +13,7 @@ TYPES = [StandardType.DATAFRAME, StandardType.TABLE]
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Strip plot",
     command_id="himena-seaborn:plotting-categorical:stripplot",
 )
 def stripplot(model: WidgetDataModel) -> Parametric:
@@ -51,6 +52,7 @@ def stripplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Swarm plot",
     command_id="himena-seaborn:plotting-categorical:swarmplot",
 )
 def swarmplot(model: WidgetDataModel) -> Parametric:
@@ -88,6 +90,7 @@ def swarmplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Box plot",
     command_id="himena-seaborn:plotting-categorical:boxplot",
 )
 def boxplot(model: WidgetDataModel) -> Parametric:
@@ -130,6 +133,7 @@ def boxplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Violin plot",
     command_id="himena-seaborn:plotting-categorical:violinplot",
 )
 def violinplot(model: WidgetDataModel) -> Parametric:
@@ -168,6 +172,7 @@ def violinplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Boxen plot",
     command_id="himena-seaborn:plotting-categorical:boxenplot",
 )
 def boxenplot(model: WidgetDataModel) -> Parametric:
@@ -214,6 +219,7 @@ def boxenplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Pair plot",
     command_id="himena-seaborn:plotting-fig:pairplot",
 )
 def pairplot(model: WidgetDataModel) -> Parametric:
@@ -245,6 +251,7 @@ def pairplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Joint plot",
     command_id="himena-seaborn:plotting-fig:jointplot",
 )
 def jointplot(model: WidgetDataModel) -> Parametric:
@@ -283,6 +290,7 @@ def jointplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Bar plot",
     command_id="himena-seaborn:plotting-categorical:barplot",
 )
 def barplot(model: WidgetDataModel) -> Parametric:
@@ -323,6 +331,7 @@ def barplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Point plot",
     command_id="himena-seaborn:plotting-categorical:pointplot",
 )
 def pointplot(model: WidgetDataModel) -> Parametric:
@@ -367,6 +376,7 @@ def pointplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Count plot",
     command_id="himena-seaborn:plotting-categorical:countplot",
 )
 def countplot(model: WidgetDataModel) -> Parametric:
@@ -403,6 +413,7 @@ def countplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Categorical plot (figure-level)",
     command_id="himena-seaborn:plotting-fig:catplot",
 )
 def catplot(model: WidgetDataModel) -> Parametric:
@@ -446,6 +457,7 @@ def catplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Distribution plot (figure-level)",
     command_id="himena-seaborn:plotting-distribution:displot",
 )
 def displot(model: WidgetDataModel) -> Parametric:
@@ -488,6 +500,7 @@ def displot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Histogram plot",
     command_id="himena-seaborn:plotting-distribution:histplot",
 )
 def histplot(model: WidgetDataModel) -> Parametric:
@@ -527,6 +540,7 @@ def histplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="KDE plot",
     command_id="himena-seaborn:plotting-distribution:kdeplot",
 )
 def kdeplot(model: WidgetDataModel) -> Parametric:
@@ -569,6 +583,7 @@ def kdeplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Empirical CDF plot",
     command_id="himena-seaborn:plotting-distribution:ecdfplot",
 )
 def ecdfplot(model: WidgetDataModel) -> Parametric:
@@ -605,6 +620,7 @@ def ecdfplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Rug plot",
     command_id="himena-seaborn:plotting-distribution:rugplot",
 )
 def rugplot(model: WidgetDataModel) -> Parametric:
@@ -642,6 +658,7 @@ def rugplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Regression plot (figure-level)",
     command_id="himena-seaborn:plotting-regression:lmplot",
 )
 def lmplot(model: WidgetDataModel) -> Parametric:
@@ -680,6 +697,7 @@ def lmplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Regression plot",
     command_id="himena-seaborn:plotting-regression:regplot",
 )
 def regplot(model: WidgetDataModel) -> Parametric:
@@ -720,6 +738,7 @@ def regplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="scatter plot",
     command_id="himena-seaborn:plotting-rel:scatterplot",
 )
 def scatterplot(model: WidgetDataModel) -> Parametric:
@@ -756,6 +775,7 @@ def scatterplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Line plot",
     command_id="himena-seaborn:plotting-rel:lineplot",
 )
 def lineplot(model: WidgetDataModel) -> Parametric:
@@ -799,6 +819,7 @@ def lineplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
+    title="Relational plot (figure-level)",
     command_id="himena-seaborn:plotting-fig:relplot",
 )
 def relplot(model: WidgetDataModel) -> Parametric:
