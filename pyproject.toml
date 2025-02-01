@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling>=1.26.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "himena-seaborn"
+dynamic = ["version"]
+description = 'Calling seaborn plotting functions for himena'
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = []
+authors = [
+  { name = "hanjinliu", email = "liuhanjin.sc@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "himena",
+  "seaborn",
+]
+
+[project.urls]
+Documentation = "https://github.com/hanjinliu/himena-seaborn#readme"
+Issues = "https://github.com/hanjinliu/himena-seaborn/issues"
+Source = "https://github.com/hanjinliu/himena-seaborn"
+
+[tool.hatch.version]
+path = "src/himena_seaborn/__init__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/himena_seaborn tests}"
+
+[tool.coverage.run]
+source_pkgs = ["himena_seaborn", "tests"]
+branch = true
+parallel = true
+
+[tool.coverage.paths]
+himena_seaborn = ["src/himena_seaborn", "*/himena-seaborn/src/himena_seaborn"]
+tests = ["tests", "*/himena-seaborn/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[project.entry-points."himena.plugin"]
+"Plotting" = "himena_seaborn.plotting"
