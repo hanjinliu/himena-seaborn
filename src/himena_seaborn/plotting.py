@@ -5,6 +5,7 @@ from himena.plugins import register_function, configure_gui
 from himena.data_wrappers import wrap_dataframe
 import numpy as np
 from himena_seaborn._figure import figure_and_axes
+from himena_seaborn._doc import Doc
 
 MENUS = ["tools/dataframe/seaborn", "/model_menu/seaborn"]
 TYPES = [StandardType.DATAFRAME, StandardType.TABLE]
@@ -23,9 +24,15 @@ def stripplot(model: WidgetDataModel) -> Parametric:
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        jitter={"tooltip": Doc.jitter},
+        dodge={"tooltip": Doc.dodge},
+        orient={"tooltip": Doc.orient},
+        size={"tooltip": Doc.size},
+        linewidth={"tooltip": Doc.linewidth},
+        log_scale={"tooltip": Doc.log_scale},
     )
     def run(
         x: str | None = None,
@@ -34,13 +41,15 @@ def stripplot(model: WidgetDataModel) -> Parametric:
         jitter: float = 0.1,
         dodge: bool = False,
         orient: Literal["vertical", "horizontal"] = "vertical",
+        size: float = 5.0,
         linewidth: float = 0.0,
+        log_scale: bool = False,
     ) -> WidgetDataModel:
         fig, ax = figure_and_axes()
         data = _norm_data(model)
         sns.stripplot(
-            x=x, y=y, hue=hue, data=data, jitter=jitter, dodge=dodge,
-            orient=_get_orient(orient), linewidth=linewidth, ax=ax,
+            x=x, y=y, hue=hue, data=data, jitter=jitter, dodge=dodge, size=size,
+            orient=_get_orient(orient), linewidth=linewidth, log_scale=log_scale, ax=ax,
         )  # fmt: skip
         return WidgetDataModel(
             value=fig, type=StandardType.MPL_FIGURE, title=f"Plot of {model.title}"
@@ -56,14 +65,20 @@ def stripplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:swarmplot",
 )
 def swarmplot(model: WidgetDataModel) -> Parametric:
+    """Make a swarm plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        dodge={"tooltip": Doc.dodge},
+        orient={"tooltip": Doc.orient},
+        size={"tooltip": Doc.size},
+        linewidth={"tooltip": Doc.linewidth},
+        log_scale={"tooltip": Doc.log_scale},
     )
     def run(
         x: str | None = None,
@@ -73,11 +88,12 @@ def swarmplot(model: WidgetDataModel) -> Parametric:
         orient: Literal["vertical", "horizontal"] = "vertical",
         size: float = 5,
         linewidth: float = 0.0,
+        log_scale: bool = False,
     ) -> WidgetDataModel:
         fig, ax = figure_and_axes()
         data = _norm_data(model)
         sns.swarmplot(
-            x=x, y=y, hue=hue, data=data, dodge=dodge, size=size,
+            x=x, y=y, hue=hue, data=data, dodge=dodge, size=size, log_scale=log_scale,
             orient=_get_orient(orient), linewidth=linewidth, warn_thresh=1, ax=ax,
         )  # fmt: skip
         return WidgetDataModel(
@@ -94,14 +110,25 @@ def swarmplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:boxplot",
 )
 def boxplot(model: WidgetDataModel) -> Parametric:
+    """Make a box plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        dodge={"tooltip": Doc.dodge},
+        orient={"tooltip": Doc.orient},
+        saturation={"tooltip": Doc.saturation},
+        fill={"tooltip": Doc.fill},
+        width={"tooltip": "Width of the boxes"},
+        gap={"tooltip": Doc.gap},
+        whis={
+            "tooltip": "Proportion of the IQR past the low and high quartiles to extend the plot whiskers"
+        },
+        linewidth={"tooltip": Doc.linewidth},
     )
     def run(
         x: str | None = None,
@@ -137,20 +164,28 @@ def boxplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:violinplot",
 )
 def violinplot(model: WidgetDataModel) -> Parametric:
+    """Make a violin plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        split={"tooltip": "If checked, split the violins for different hue levels"},
+        width={"tooltip": "Width of the violins"},
+        saturation={"tooltip": Doc.saturation},
+        fill={"tooltip": Doc.fill},
+        orient={"tooltip": Doc.orient},
+        linewidth={"tooltip": Doc.linewidth},
     )
     def run(
         x: str | None = None,
         y: str | None = None,
         hue: str | None = None,
         split: bool = False,
+        width: float = 0.8,
         saturation: float = 0.75,
         fill: bool = True,
         orient: Literal["vertical", "horizontal"] = "vertical",
@@ -160,7 +195,7 @@ def violinplot(model: WidgetDataModel) -> Parametric:
         data = _norm_data(model)
         sns.violinplot(
             x=x, y=y, hue=hue, data=data, split=split, saturation=saturation, fill=fill,
-            orient=_get_orient(orient), linewidth=linewidth, ax=ax,
+            orient=_get_orient(orient), linewidth=linewidth, width=width, ax=ax,
         )  # fmt: skip
         return WidgetDataModel(
             value=fig, type=StandardType.MPL_FIGURE, title=f"Plot of {model.title}"
@@ -176,14 +211,26 @@ def violinplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:boxenplot",
 )
 def boxenplot(model: WidgetDataModel) -> Parametric:
+    """Make a boxen plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        orient={"tooltip": Doc.orient},
+        saturation={"tooltip": Doc.saturation},
+        fill={"tooltip": Doc.fill},
+        width={"tooltip": "Width of the boxes"},
+        gap={"tooltip": Doc.gap},
+        linewidth={"tooltip": Doc.linewidth},
+        width_method={"tooltip": "Method to calculate the width of the boxes"},
+        k_depth={"tooltip": "Number of boxes to include in each level of the plot"},
+        outlier_prop={"tooltip": "Proportion of data that is considered as outliers"},
+        trust_alpha={"tooltip": "Alpha level for trustworthiness of the boxplot"},
+        showfliers={"tooltip": "If checked, show the outliers"},
     )
     def run(
         x: str | None = None,
@@ -223,16 +270,17 @@ def boxenplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-fig:pairplot",
 )
 def pairplot(model: WidgetDataModel) -> Parametric:
+    """Make a pair plot (pairwise relationships in a dataset)"""
     import seaborn as sns
 
     columns, _, _ = _get_columns_and_defaults(model)
 
     @configure_gui(
-        vars={"choices": columns, "value": [columns[0][1], columns[1][1]]},
         hue={"choices": columns},
+        kind={"tooltip": "Kind of plot for the diagonal subplots"},
+        diag_kind={"tooltip": "Kind of plot for the diagonal subplots"},
     )
     def run(
-        vars: list[str],
         hue: str | None = None,
         kind: Literal["scatter", "kde", "hist", "reg"] = "scatter",
         diag_kind: Literal["auto", "hist", "kde"] | None = "auto",
@@ -255,20 +303,27 @@ def pairplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-fig:jointplot",
 )
 def jointplot(model: WidgetDataModel) -> Parametric:
+    """Make a joint plot (joint and marginal views of two variables)"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        kind={"tooltip": "Kind of plot to draw in the joint plot"},
+        height={"tooltip": "Size of the figure (it will be square)"},
+        ratio={"tooltip": "Ratio of joint axes height to marginal axes height"},
+        space={"tooltip": "Space between the joint and marginal axes"},
+        dropna={"tooltip": "If checked, remove missing values"},
+        marginal_ticks={"tooltip": "If checked, show the ticks on the marginal axes"},
     )
     def run(
         x: str | None = None,
         y: str | None = None,
         hue: str | None = None,
-        kind: Literal["scatter", "kde", "hist", "reg"] = "scatter",
+        kind: Literal["scatter", "kde", "hist", "hex", "reg", "resid"] = "scatter",
         height: int = 6,
         ratio: int = 5,
         space: float = 0.2,
@@ -294,14 +349,26 @@ def jointplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:barplot",
 )
 def barplot(model: WidgetDataModel) -> Parametric:
+    """Make a bar plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        n_boot={"tooltip": Doc.n_boot},
+        units={
+            "tooltip": "Identifier of sampling units, which will be used to perform a multilevel bootstrap"
+        },
+        orient={"tooltip": Doc.orient},
+        saturation={"tooltip": Doc.saturation},
+        capsize={"tooltip": "Width of the caps on the error bars"},
+        dodge={"tooltip": Doc.dodge},
+        width={"tooltip": "Width of the bars"},
+        gap={"tooltip": Doc.gap},
+        log_scale={"tooltip": Doc.log_scale},
     )
     def run(
         x: str | None = None,
@@ -313,13 +380,16 @@ def barplot(model: WidgetDataModel) -> Parametric:
         saturation: float = 0.75,
         capsize: float = 0.0,
         dodge: bool = True,
+        width: float = 0.8,
+        gap: float = 0,
+        log_scale: bool = False,
     ) -> WidgetDataModel:
         fig, ax = figure_and_axes()
         data = _norm_data(model)
         sns.barplot(
-            x=x, y=y, hue=hue, data=data, n_boot=n_boot, units=units,
+            x=x, y=y, hue=hue, data=data, n_boot=n_boot, units=units, width=width,
             orient=_get_orient(orient), saturation=saturation, dodge=dodge,
-            capsize=capsize, ax=ax,
+            capsize=capsize, gap=gap, log_scale=log_scale, ax=ax,
         )  # fmt: skip
         return WidgetDataModel(
             value=fig, type=StandardType.MPL_FIGURE, title=f"Plot of {model.title}"
@@ -335,14 +405,27 @@ def barplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:pointplot",
 )
 def pointplot(model: WidgetDataModel) -> Parametric:
+    """Make a point plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        n_boot={"tooltip": Doc.n_boot},
+        units={
+            "tooltip": "Identifier of sampling units, which will be used to perform a multilevel bootstrap"
+        },
+        orient={"tooltip": Doc.orient},
+        markers={"tooltip": "Marker style"},
+        linestyles={"tooltip": "Line style"},
+        dodge={"tooltip": Doc.dodge},
+        estimator={
+            "tooltip": "Statistical function to estimate within each categorical bin"
+        },
+        capsize={"tooltip": "Width of the caps on the error bars"},
     )
     def run(
         x: str | None = None,
@@ -380,14 +463,25 @@ def pointplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-categorical:countplot",
 )
 def countplot(model: WidgetDataModel) -> Parametric:
+    """Make a count plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        orient={"tooltip": Doc.orient},
+        saturation={"tooltip": Doc.saturation},
+        dodge={"tooltip": Doc.dodge},
+        fill={"tooltip": Doc.fill},
+        stat={
+            "tooltip": "Statistical function to estimate within each categorical bin"
+        },
+        width={"tooltip": "Width of the bars"},
+        gap={"tooltip": Doc.gap},
+        log_scale={"tooltip": Doc.log_scale},
     )
     def run(
         x: str | None = None,
@@ -396,12 +490,18 @@ def countplot(model: WidgetDataModel) -> Parametric:
         orient: Literal["vertical", "horizontal"] = "vertical",
         saturation: float = 0.75,
         dodge: bool = True,
+        fill: bool = True,
+        stat: Literal["count", "frequency", "proportion"] = "count",
+        width: float = 0.8,
+        gap: float = 0,
+        log_scale: bool = False,
     ) -> WidgetDataModel:
         fig, ax = figure_and_axes()
         data = _norm_data(model)
         sns.countplot(
-            x=x, y=y, hue=hue, data=data, orient=_get_orient(orient),
-            saturation=saturation, dodge=dodge, ax=ax,
+            x=x, y=y, hue=hue, data=data, orient=_get_orient(orient), fill=fill,
+            saturation=saturation, dodge=dodge, stat=stat, width=width, gap=gap,
+            log_scale=log_scale, ax=ax,
         )  # fmt: skip
         return WidgetDataModel(
             value=fig, type=StandardType.MPL_FIGURE, title=f"Plot of {model.title}"
@@ -417,16 +517,20 @@ def countplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-fig:catplot",
 )
 def catplot(model: WidgetDataModel) -> Parametric:
+    """Make a figure-level categorical plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
-        col={"choices": columns},
-        row={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        col={"choices": columns, "tooltip": Doc.col},
+        row={"choices": columns, "tooltip": Doc.row},
+        kind={"tooltip": "Kind of plot to draw"},
+        height={"tooltip": "Size of the figure (it will be square)"},
+        aspect={"tooltip": "Aspect ratio of each facet"},
     )
     def run(
         x: str | None = None,
@@ -461,14 +565,21 @@ def catplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-distribution:displot",
 )
 def displot(model: WidgetDataModel) -> Parametric:
+    """Make a figure-level distribution plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        kind={"tooltip": "Kind of plot to draw"},
+        binwidth={"tooltip": "Width of the bins"},
+        binrange={"tooltip": "Range of the bins"},
+        discrete={"tooltip": "If checked, treat the data as discrete"},
+        kde={"tooltip": "If checked, plot a kernel density estimate"},
+        log_scale={"tooltip": "If checked, use a log scale"},
     )
     def run(
         x: str | None = None,
@@ -504,14 +615,20 @@ def displot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-distribution:histplot",
 )
 def histplot(model: WidgetDataModel) -> Parametric:
+    """Make a histogram plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        binwidth={"tooltip": "Width of the bins"},
+        binrange={"tooltip": "Range of the bins"},
+        discrete={"tooltip": "If checked, treat the data as discrete"},
+        kde={"tooltip": "If checked, plot a kernel density estimate"},
+        log_scale={"tooltip": "If checked, use a log scale"},
     )
     def run(
         x: str | None = None,
@@ -544,14 +661,23 @@ def histplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-distribution:kdeplot",
 )
 def kdeplot(model: WidgetDataModel) -> Parametric:
+    """Make a KDE plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        fill={"tooltip": Doc.fill},
+        bw_adjust={"tooltip": "Bandwidth adjustment factor"},
+        log_scale={"tooltip": "If checked, use a log scale"},
+        cumulative={"tooltip": "If checked, plot a cumulative distribution"},
+        common_norm={"tooltip": "If checked, normalize the density estimate"},
+        common_grid={"tooltip": "If checked, use the same grid for all levels"},
+        levels={"tooltip": "Number of contour levels"},
+        thresh={"tooltip": "Threshold for removing small levels"},
     )
     def run(
         x: str | None = None,
@@ -587,14 +713,18 @@ def kdeplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-distribution:ecdfplot",
 )
 def ecdfplot(model: WidgetDataModel) -> Parametric:
+    """Make an empirical cumulative distribution function plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        stat={"tooltip": "Statistic to compute within each bin"},
+        complementary={"tooltip": "If checked, plot the complementary CDF"},
+        log_scale={"tooltip": Doc.log_scale},
     )
     def run(
         x: str | None = None,
@@ -624,14 +754,19 @@ def ecdfplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-distribution:rugplot",
 )
 def rugplot(model: WidgetDataModel) -> Parametric:
+    """Make a rug plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        height={"tooltip": "Height of the ticks"},
+        expand_margins={"tooltip": "If checked, expand the plot margins"},
+        linewidth={"tooltip": Doc.linewidth},
+        alpha={"tooltip": "Transparency of the ticks"},
     )
     def run(
         x: str | None = None,
@@ -662,16 +797,19 @@ def rugplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-regression:lmplot",
 )
 def lmplot(model: WidgetDataModel) -> Parametric:
+    """Make a figure-level regression plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        col={"choices": columns},
-        row={"choices": columns},
-        hue={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        col={"choices": columns, "tooltip": Doc.col},
+        row={"choices": columns, "tooltip": Doc.row},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        height={"tooltip": "Size of the figure (it will be square)"},
+        aspect={"tooltip": "Aspect ratio of each facet"},
     )
     def run(
         x: str | None = None,
@@ -701,13 +839,25 @@ def lmplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-regression:regplot",
 )
 def regplot(model: WidgetDataModel) -> Parametric:
+    """Make a regression plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        scatter={"tooltip": "If checked, show the scatter plot"},
+        fit_reg={"tooltip": "If checked, show the regression line"},
+        n_boot={"tooltip": Doc.n_boot},
+        units={
+            "tooltip": "Identifier of sampling units, which will be used to perform a multilevel bootstrap"
+        },
+        order={"tooltip": "Order of the polynomial to fit"},
+        logistic={"tooltip": "If checked, fit a logistic regression model"},
+        lowess={"tooltip": "If checked, fit a lowess smoother"},
+        robust={"tooltip": "If checked, fit a robust regression model"},
+        logx={"tooltip": "If checked, use a log scale for the x-axis"},
     )
     def run(
         x: str | None = None,
@@ -742,16 +892,17 @@ def regplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-rel:scatterplot",
 )
 def scatterplot(model: WidgetDataModel) -> Parametric:
+    """Make a scatter plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
-        style={"choices": columns},
-        size={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        style={"choices": columns, "tooltip": Doc.style},
+        size={"choices": columns, "tooltip": Doc.size},
     )
     def run(
         x: str | None = None,
@@ -779,16 +930,22 @@ def scatterplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-rel:lineplot",
 )
 def lineplot(model: WidgetDataModel) -> Parametric:
+    """Make a line plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
-        style={"choices": columns},
-        size={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        style={"choices": columns, "tooltip": Doc.style},
+        size={"choices": columns, "tooltip": Doc.size},
+        units={"choices": columns, "tooltip": "Identifier of sampling units"},
+        estimator={"tooltip": "Statistical function to estimate within each bin"},
+        n_boot={"tooltip": Doc.n_boot},
+        sort={"tooltip": "If checked, sort the x-axis"},
+        err_style={"tooltip": "Style of error bars"},
     )
     def run(
         x: str | None = None,
@@ -797,8 +954,9 @@ def lineplot(model: WidgetDataModel) -> Parametric:
         style: str | None = None,
         size: str | None = None,
         units: str | None = None,
-        estimator: Literal["mean", "median", "count", "sum", "std", "sem", "ci", "sd"]
-        | None = "mean",
+        estimator: Literal[
+            "mean", "median", "count", "sum", "std", "sem", "ci", "sd"
+        ] = "mean",
         n_boot: int = 1000,
         sort: bool = True,
         err_style: Literal["band", "bars"] = "band",
@@ -823,18 +981,19 @@ def lineplot(model: WidgetDataModel) -> Parametric:
     command_id="himena-seaborn:plotting-fig:relplot",
 )
 def relplot(model: WidgetDataModel) -> Parametric:
+    """Make a figure-level relational plot"""
     import seaborn as sns
 
     columns, x_default, y_default = _get_columns_and_defaults(model)
 
     @configure_gui(
-        x={"choices": columns, "value": x_default},
-        y={"choices": columns, "value": y_default},
-        hue={"choices": columns},
-        col={"choices": columns},
-        row={"choices": columns},
-        style={"choices": columns},
-        size={"choices": columns},
+        x={"choices": columns, "value": x_default, "tooltip": Doc.x},
+        y={"choices": columns, "value": y_default, "tooltip": Doc.y},
+        hue={"choices": columns, "tooltip": Doc.hue},
+        col={"choices": columns, "tooltip": Doc.col},
+        row={"choices": columns, "tooltip": Doc.row},
+        style={"choices": columns, "tooltip": Doc.style},
+        size={"choices": columns, "tooltip": Doc.size},
     )
     def run(
         x: str | None = None,
