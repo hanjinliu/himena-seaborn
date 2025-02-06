@@ -2,6 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/himena-seaborn.svg)](https://pypi.org/project/himena-seaborn)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/himena-seaborn.svg)](https://pypi.org/project/himena-seaborn)
+[![codecov](https://codecov.io/gh/hanjinliu/himena-seaborn/graph/badge.svg?token=xAwjHbjAxX)](https://codecov.io/gh/hanjinliu/himena-seaborn)
 
 -----
 
