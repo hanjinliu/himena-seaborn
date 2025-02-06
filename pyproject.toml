@@ -33,6 +33,7 @@ dependencies = [
 testing = [
   "pytest",
   "pytest-cov",
+  "pyqt6",
 ]
 
 [project.urls]
@@ -52,6 +53,9 @@ check = "mypy --install-types --non-interactive {args:src/himena_seaborn tests}"
 
 [tool.hatch.envs.test]
 features = ["testing"]
+
+[tool.hatch.envs.test.scripts]
+run = "pytest -v --cov --cov-report=xml"
 
 [tool.coverage.run]
 source_pkgs = ["himena_seaborn", "tests"]
