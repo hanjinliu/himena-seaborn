@@ -14,8 +14,9 @@ TYPES = [StandardType.DATAFRAME, StandardType.TABLE]
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Strip plot",
-    command_id="himena-seaborn:plotting-categorical:stripplot",
+    title="Strip Plot",
+    command_id="himena-seaborn:stripplot",
+    group="plotting-categorical",
 )
 def stripplot(model: WidgetDataModel) -> Parametric:
     """Make a strip plot"""
@@ -61,8 +62,9 @@ def stripplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Swarm plot",
-    command_id="himena-seaborn:plotting-categorical:swarmplot",
+    title="Swarm Plot",
+    command_id="himena-seaborn:swarmplot",
+    group="plotting-categorical",
 )
 def swarmplot(model: WidgetDataModel) -> Parametric:
     """Make a swarm plot"""
@@ -106,8 +108,9 @@ def swarmplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Box plot",
-    command_id="himena-seaborn:plotting-categorical:boxplot",
+    title="Box Plot",
+    command_id="himena-seaborn:boxplot",
+    group="plotting-categorical",
 )
 def boxplot(model: WidgetDataModel) -> Parametric:
     """Make a box plot"""
@@ -160,8 +163,9 @@ def boxplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Violin plot",
-    command_id="himena-seaborn:plotting-categorical:violinplot",
+    title="Violin Plot",
+    command_id="himena-seaborn:violinplot",
+    group="plotting-categorical",
 )
 def violinplot(model: WidgetDataModel) -> Parametric:
     """Make a violin plot"""
@@ -207,8 +211,9 @@ def violinplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Boxen plot",
-    command_id="himena-seaborn:plotting-categorical:boxenplot",
+    title="Boxen Plot",
+    command_id="himena-seaborn:boxenplot",
+    group="plotting-categorical",
 )
 def boxenplot(model: WidgetDataModel) -> Parametric:
     """Make a boxen plot"""
@@ -266,8 +271,9 @@ def boxenplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Pair plot",
-    command_id="himena-seaborn:plotting-fig:pairplot",
+    title="Pair Plot",
+    command_id="himena-seaborn:pairplot",
+    group="plotting-fig",
 )
 def pairplot(model: WidgetDataModel) -> Parametric:
     """Make a pair plot (pairwise relationships in a dataset)"""
@@ -299,8 +305,9 @@ def pairplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Joint plot",
-    command_id="himena-seaborn:plotting-fig:jointplot",
+    title="Joint Plot",
+    command_id="himena-seaborn:jointplot",
+    group="plotting-fig",
 )
 def jointplot(model: WidgetDataModel) -> Parametric:
     """Make a joint plot (joint and marginal views of two variables)"""
@@ -345,8 +352,9 @@ def jointplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Bar plot",
-    command_id="himena-seaborn:plotting-categorical:barplot",
+    title="Bar Plot",
+    command_id="himena-seaborn:barplot",
+    group="plotting-categorical",
 )
 def barplot(model: WidgetDataModel) -> Parametric:
     """Make a bar plot"""
@@ -401,8 +409,9 @@ def barplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Point plot",
-    command_id="himena-seaborn:plotting-categorical:pointplot",
+    title="Point Plot",
+    command_id="himena-seaborn:pointplot",
+    group="plotting-categorical",
 )
 def pointplot(model: WidgetDataModel) -> Parametric:
     """Make a point plot"""
@@ -459,8 +468,9 @@ def pointplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Count plot",
-    command_id="himena-seaborn:plotting-categorical:countplot",
+    title="Count Plot",
+    command_id="himena-seaborn:countplot",
+    group="plotting-categorical",
 )
 def countplot(model: WidgetDataModel) -> Parametric:
     """Make a count plot"""
@@ -513,8 +523,9 @@ def countplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Categorical plot (figure-level)",
-    command_id="himena-seaborn:plotting-fig:catplot",
+    title="Categorical Plot (Figure-Level)",
+    command_id="himena-seaborn:catplot",
+    group="plotting-fig",
 )
 def catplot(model: WidgetDataModel) -> Parametric:
     """Make a figure-level categorical plot"""
@@ -561,8 +572,9 @@ def catplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Distribution plot (figure-level)",
-    command_id="himena-seaborn:plotting-distribution:displot",
+    title="Distribution Plot (Figure-Level)",
+    command_id="himena-seaborn:displot",
+    group="plotting-distribution",
 )
 def displot(model: WidgetDataModel) -> Parametric:
     """Make a figure-level distribution plot"""
@@ -611,8 +623,9 @@ def displot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Histogram plot",
-    command_id="himena-seaborn:plotting-distribution:histplot",
+    title="Histogram Plot",
+    command_id="himena-seaborn:histplot",
+    group="plotting-distribution",
 )
 def histplot(model: WidgetDataModel) -> Parametric:
     """Make a histogram plot"""
@@ -657,8 +670,9 @@ def histplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="KDE plot",
-    command_id="himena-seaborn:plotting-distribution:kdeplot",
+    title="KDE Plot",
+    command_id="himena-seaborn:kdeplot",
+    group="plotting-distribution",
 )
 def kdeplot(model: WidgetDataModel) -> Parametric:
     """Make a KDE plot"""
@@ -709,8 +723,9 @@ def kdeplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Empirical CDF plot",
-    command_id="himena-seaborn:plotting-distribution:ecdfplot",
+    title="Empirical CDF Plot",
+    command_id="himena-seaborn:ecdfplot",
+    group="plotting-distribution",
 )
 def ecdfplot(model: WidgetDataModel) -> Parametric:
     """Make an empirical cumulative distribution function plot"""
@@ -750,8 +765,9 @@ def ecdfplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Rug plot",
-    command_id="himena-seaborn:plotting-distribution:rugplot",
+    title="Rug Plot",
+    command_id="himena-seaborn:rugplot",
+    group="plotting-distribution",
 )
 def rugplot(model: WidgetDataModel) -> Parametric:
     """Make a rug plot"""
@@ -793,8 +809,9 @@ def rugplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Regression plot (figure-level)",
-    command_id="himena-seaborn:plotting-regression:lmplot",
+    title="Regression Plot (Figure-Level)",
+    command_id="himena-seaborn:lmplot",
+    group="plotting-regression",
 )
 def lmplot(model: WidgetDataModel) -> Parametric:
     """Make a figure-level regression plot"""
@@ -835,8 +852,9 @@ def lmplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Regression plot",
-    command_id="himena-seaborn:plotting-regression:regplot",
+    title="Regression Plot",
+    command_id="himena-seaborn:regplot",
+    group="plotting-regression",
 )
 def regplot(model: WidgetDataModel) -> Parametric:
     """Make a regression plot"""
@@ -888,8 +906,9 @@ def regplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="scatter plot",
-    command_id="himena-seaborn:plotting-rel:scatterplot",
+    title="Scatter Plot",
+    command_id="himena-seaborn:scatterplot",
+    group="plotting-rel",
 )
 def scatterplot(model: WidgetDataModel) -> Parametric:
     """Make a scatter plot"""
@@ -926,8 +945,9 @@ def scatterplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Line plot",
-    command_id="himena-seaborn:plotting-rel:lineplot",
+    title="Line Plot",
+    command_id="himena-seaborn:lineplot",
+    group="plotting-rel",
 )
 def lineplot(model: WidgetDataModel) -> Parametric:
     """Make a line plot"""
@@ -977,8 +997,9 @@ def lineplot(model: WidgetDataModel) -> Parametric:
 @register_function(
     menus=MENUS,
     types=TYPES,
-    title="Relational plot (figure-level)",
-    command_id="himena-seaborn:plotting-fig:relplot",
+    title="Relational Plot (Figure-Level)",
+    command_id="himena-seaborn:relplot",
+    group="plotting-fig",
 )
 def relplot(model: WidgetDataModel) -> Parametric:
     """Make a figure-level relational plot"""
