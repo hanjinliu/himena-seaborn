@@ -15,7 +15,7 @@ def test_categorical(himena_ui: MainWindow):
     ]:
         nwin = len(himena_ui.tabs[0])
         himena_ui.exec_action(
-            f"himena-seaborn:plotting-categorical:{func}",
+            f"himena-seaborn:{func}",
             model_context=win.to_model(),
             with_params={"x": "day", "y": "total_bill", "hue": "smoker"},
         )
@@ -27,7 +27,7 @@ def test_relational(himena_ui: MainWindow):
     for func in ["scatterplot", "lineplot"]:
         nwin = len(himena_ui.tabs[0])
         himena_ui.exec_action(
-            f"himena-seaborn:plotting-rel:{func}",
+            f"himena-seaborn:{func}",
             model_context=win.to_model(),
             with_params={"x": "total_bill", "y": "tip", "hue": "day"},
         )
@@ -39,7 +39,7 @@ def test_distribution(himena_ui: MainWindow):
     for func in ["histplot", "kdeplot", "ecdfplot"]:
         nwin = len(himena_ui.tabs[0])
         himena_ui.exec_action(
-            f"himena-seaborn:plotting-distribution:{func}",
+            f"himena-seaborn:{func}",
             model_context=win.to_model(),
             with_params={"x": "total_bill", "hue": "day"},
         )
@@ -51,7 +51,7 @@ def test_regression(himena_ui: MainWindow):
     for func in ["regplot", "lmplot"]:
         nwin = len(himena_ui.tabs[0])
         himena_ui.exec_action(
-            f"himena-seaborn:plotting-regression:{func}",
+            f"himena-seaborn:{func}",
             model_context=win.to_model(),
             with_params={"x": "total_bill", "y": "tip"},
         )
