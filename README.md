@@ -12,17 +12,18 @@ Running [`seaborn`](https://github.com/mwaskom/seaborn) functions inside [`himen
 
 ## Installation
 
-```console
-pip install himena-seaborn
+The easiest way to install `himena-seaborn` is via himena's `--get` option.
+
+```shell
+himena <my-profile> --get himena-seaborn
 ```
 
-To install `himena-seaborn` to your profile, run the following command:
+Alternatively, you can install `himena-seaborn` to your Python environment via pip, and
+then install it to your himena profile.
 
-```console
+```shell
+pip install himena-seaborn
 himena <my-profile> --install himena-seaborn
-
-# or to the default profile
-himena --install himena-seaborn
 ```
 
 ## Usage
